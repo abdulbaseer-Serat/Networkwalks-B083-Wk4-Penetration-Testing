@@ -125,7 +125,22 @@ Phase 6  Further Exposure Analysis → /old/ backup discovery → HR & sharehold
 
 ---
 
-## 🕵️ Attack Surface Discovery
+## 3. Findings and Proof of Exploitation
+### 3.1 Summary Table 
+
+| # | Vulnerability | Location | Risk |
+|---|---------------|----------|------|
+| 1 | Username enumeration on login page | `patient/login.php` | Medium |
+| 2 | SQL injection login bypass | `patient/login.php` | Critical |
+| 3 | Encrypted PDFs accessible after login bypass | `patient/reports/` | High |
+| 4 | Weak PDF passwords crackable with a wordlist | `patient_report_*.pdf` | High |
+| 5 | Sensitive metadata left in patient PDF files | `patient_report_3.pdf` | Medium |
+| 6 | Forgotten backup folder with directory listing enabled | `old/` | Critical |
+| 7 | Confidential staff salaries and shareholder data in plain text | `old/mediroza_db_backup_2019.sql` | Critical |
+
+
+
+## 🕵️ Findings and Proof of Exploitation
 
 **HTTP fingerprinting** revealed the server stack and CMS version (`LiteSpeed`, `PHP/8.2.33`, `Mediroza CMS 1.4.2`), providing reconnaissance value to an attacker.
 
