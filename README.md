@@ -220,6 +220,7 @@ patient_report_3.pdf
 
 </details>
 
+
 <details open >
 <summary><strong>Finding-04 · Weak PDF Passwords Crackable with a Wordlist </strong> — 🟠 High</summary>
 #### Description
@@ -241,6 +242,8 @@ Report 3 did not crack with the built-in list. I switched to a larger wordlist (
 
 </details>
 
+
+
 <details Open>
 <summary><strong>Finding-05 · 5. Sensitive Metadata in Patient PDF Files</strong> — 🟡 Medium</summary>
 
@@ -252,6 +255,8 @@ A patient PDF file contained sensitive metadata that was not visible during norm
 #### Evidence
 Metadata analysis of a patient report uncovered internal comments referencing a backup file stored on the server.
 </details>
+
+
 
 <details Open>
 <summary><strong>Finding-06 · Forgotten Backup Folder with Directory Listing Enabled</strong> — 🔴 Critical</summary>
@@ -270,9 +275,11 @@ mediroza_db_backup_2019.sql
 </details>
 
 
+
 <details Open>
 <summary><strong>Finding-07 · Confidential Staff and Shareholder Data Exposed</strong> — 🔴 Critical</summary>
-**Location:** `mediroza_db_backup_2019.sql`
+
+   **Location:** `mediroza_db_backup_2019.sql`
  
 #### Description
 A publicly accessible database backup contained highly sensitive information, including employee records, salary data, and shareholder information. The data was stored in plain text and could be accessed without authentication.
