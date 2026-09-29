@@ -85,6 +85,15 @@ The penetration test was conducted against the following target:
 
 **Out of scope:** - Social engineering attacks - Denial-of-Service (DoS) attacks - Any systems or domains outside the agreed scope
 
+## 2.2 Methodology
+
+The assessment followed a structured black-box penetration testing approach consisting of four phases:
+
+1. **Reconnaissance** – Gathered publicly available information about the target.
+2. **Vulnerability Identification** – Analyzed the application to identify security weaknesses.
+3. **Exploitation** – Performed controlled exploitation to verify the impact of discovered vulnerabilities.
+4. **Documentation** – Recorded findings, evidence, and remediation recommendations.
+
 ### Testing Phases
 
 ```
