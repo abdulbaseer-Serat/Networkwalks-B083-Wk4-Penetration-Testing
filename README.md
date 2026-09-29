@@ -78,15 +78,15 @@ Overall, the hospital's security posture is poor, with multiple vulnerabilities 
 ## 2. 🔍 Scope & Methodology
 
 ### 2.1 Scope
-
+---
 The penetration test was conducted against the following target:
 - **Target:** https://medirozahospital.com
 
 
 **Out of scope:** - Social engineering attacks - Denial-of-Service (DoS) attacks - Any systems or domains outside the agreed scope
 
-## 2.2 Methodology
-
+### 2.2 Methodology
+---
 The assessment followed a structured black-box penetration testing approach consisting of four phases:
 
 1. **Reconnaissance** – Gathered publicly available information about the target.
@@ -106,9 +106,6 @@ Phase 6  Further Exposure Analysis → /old/ backup discovery → HR & sharehold
 ```
 
 ---
-<img width="1600" height="821" alt="evidencem3-database-structure png" src="https://github.com/user-attachments/assets/0d9c2a30-e2e2-43a8-9553-cae0f5559eaf" />
-<img width="669" height="500" alt="sqli-error-evidence png" src="https://github.com/user-attachments/assets/2a700177-ecb8-4f1b-ada0-c6d2d2656283" />
-
 
 ## 🛠 Tools Used
 
