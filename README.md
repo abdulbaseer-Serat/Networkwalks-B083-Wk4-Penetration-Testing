@@ -377,25 +377,6 @@ Multiple critical vulnerabilities enabled a complete attack path from initial ac
 ---
 
 
-Recommended repo structure:
-
-```
-mediroza-week4-pentest/
-├── README.md
-├── evidence/
-│   ├── m1-patient-portal-access.png
-│   ├── m1-report-list.png
-│   ├── m2-hashcat-report[1-3].png
-│   ├── m2-report[1-3]-decryption.png
-│   ├── m3-public-old-directory.png
-│   ├── m3-database-structure.png
-│   ├── m3-staff-exposure.png
-│   └── m3-shareholder-exposure.png
-└── methodology/
-    └── testing-notes.md
-```
-
----
 
 ## 💡 Lessons Learned
 
