@@ -154,11 +154,13 @@ Phase 6  Further Exposure Analysis → /old/ backup discovery → HR & sharehold
 The login page returned different error messages for invalid usernames and incorrect passwords, allowing attackers to determine whether a username exists on the system.
  
 #### Evidence
-Invalid Username
+Username not found
 ```text
 Username: bob
 Password: test123
 ```
+<img width="948" height="458" alt="image" src="https://github.com/user-attachments/assets/29e7002f-e00e-4d3f-9f2b-0a134084bf78" />
+
 </details>
 
 
@@ -179,8 +181,11 @@ Example test input:
 ```text
 Username: admin'
 Password: test123
-</details>
 ```
+<img width="959" height="500" alt="image" src="https://github.com/user-attachments/assets/940b2174-38a9-4b34-8995-df72e0ce8545" />
+</details>
+
+
 
 <details open>
 <summary><strong>MED-03 · Weak PDF Password Protection</strong> — 🟠 High</summary>
