@@ -184,7 +184,13 @@ Password: test123
 ```
 <img width="959" height="500" alt="image" src="https://github.com/user-attachments/assets/940b2174-38a9-4b34-8995-df72e0ce8545" />
 
-The error confirmed that the parameter was injectable. By using a SQL Injection payload, authentication was bypassed and access to the portal was obtained without valid credentials.
+The error confirmed that the parameter was injectable. By using a SQL Injection payload, authentication was bypassed and access to the portal was obtained without valid credentials. The application was building its SQL query like this behind the scenes. ```text SELECT * FROM users WHERE username='admin'' AND password='test123' ```
+
+The extra quote broke the query and caused the error. I then crafted the classic SQL injection bypass payload. 
+```text
+Username: admin'--
+Password: anything
+```
 
 **Impact**An attacker could gain unauthorized access to sensitive patient information and other protected resources.
 
