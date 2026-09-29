@@ -206,7 +206,7 @@ The password check is ignored completely. The query returns the admin row and I 
 **Location:** `patient/reports/`
 
 #### Description
-Following unauthorized access to the patient portal, several confidential patient laboratory reports were available for download. These documents contained sensitive medical information intended only for authorized users.
+After gaining unauthorized access to the portal through SQL injection, there are three patient lab report PDFs  available for download. These are confidential medical documents that should only be accessible to the named patients and their doctors.
 
 #### Evidence
 The portal exposed multiple downloadable PDF files:
@@ -221,11 +221,20 @@ patient_report_3.pdf
 </details>
 
 <details open >
-<summary><strong>MED-04 · SQL Error Disclosure</strong> — 🟡 Medium</summary>
+<summary><strong>Finding-04 · Weak PDF Passwords Crackable with a Wordlist </strong> — 🟠 High</summary>
+#### Description
+   All three PDFs were password protected. However the passwords were weak and appeared in commonly available password wordlists, making them trivial to crack using automated tools. Using simple passwords on sensitive medical documents does not provide meaningful protection.
 
-Malformed login input reflected raw MySQL/MariaDB error text, confirming unsafe SQL construction and assisting further exploitation.
+**Steps Taken :** 
+I used the Networkwalks Hash Calculator to extract a crackable hash from each PDF, then ran each hash through the Networkwalks Password Cracker. Reports 1, 2, and 2 cracked immediately using the built-in 100 word default wordlist. 
+<img width="1916" height="1030" alt="Screenshot 2026-09-29 092035" src="https://github.com/user-attachments/assets/03ff83b0-21f5-4151-89e2-a4787f978e82" />
+<img width="1915" height="1033" alt="Screenshot 2026-09-29 092223" src="https://github.com/user-attachments/assets/209c8bc9-735c-4d55-b0cd-5f6b1a976d0d" />
 
-**Remediation:** generic errors to users, verbose errors logged server-side only, disable debug/error display in production.
+Report 3 did not crack with the built-in list. I switched to a larger wordlist (JTR default password list) and ran the attack again.
+<img width="1914" height="1034" alt="Screenshot 2026-09-29 093253" src="https://github.com/user-attachments/assets/920cd20a-49c2-49d5-b6bd-579de271ad64" />
+
+
+
 </details>
 
 <details>
