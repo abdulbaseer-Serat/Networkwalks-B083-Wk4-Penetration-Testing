@@ -186,13 +186,17 @@ Password: test123
 
 The error confirmed that the parameter was injectable. By using a SQL Injection payload, authentication was bypassed and access to the portal was obtained without valid credentials. The application was building its SQL query like this behind the scenes. ```text SELECT * FROM users WHERE username='admin'' AND password='test123' ```
 
-The extra quote broke the query and caused the error. I then crafted the classic SQL injection bypass payload. 
+After an unescaped extra quote broke the query and triggered a database error, I crafted the classic SQL injection bypass payload.
+
 ```text
 Username: admin'--
 Password: anything
 ```
+The `--` comments out everything after it in SQL, so the query becomes. ```text SELECT * FROM users WHERE username='admin' ```
 
-**Impact**An attacker could gain unauthorized access to sensitive patient information and other protected resources.
+The password check is ignored completely. The query returns the admin row and I am logged in. 
+
+**Impact** An attacker could gain unauthorized access to sensitive patient information and other protected resources.
 
 </details>
 
