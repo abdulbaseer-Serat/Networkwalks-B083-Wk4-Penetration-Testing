@@ -146,7 +146,7 @@ Phase 6  Further Exposure Analysis → /old/ backup discovery → HR & sharehold
 
 <details open>
 
-   <summary><strong>MED-01 · SQL Injection Authentication Bypass</strong> — 🟡 Medium</summary>
+   <summary><strong>MED-01 · Username Enumeration on Login Page</strong> — 🟡 Medium</summary>
 
 **Location:** `patient/login.php`
 
@@ -154,25 +154,33 @@ Phase 6  Further Exposure Analysis → /old/ backup discovery → HR & sharehold
 The login page returned different error messages for invalid usernames and incorrect passwords, allowing attackers to determine whether a username exists on the system.
  
 #### Evidence
- 
-**Invalid Username**
+Invalid Username
 ```text
 Username: bob
 Password: test123
 ```
-
-
 </details>
+
 
 <details open>
-<summary><strong>MED-02 · Publicly Accessible Database Backup</strong> — 🔴 Critical</summary>
+<summary><strong>MED-02 · SQL Injection Login Bypass </strong> — 🔴 Critical</summary>
 
-**Path:** `/old/mediroza_db_backup_2019.sql` — downloadable with no authentication.
-
-Contained a `staff` table (name, title, department, email, phone, **national ID, monthly salary**, date joined) and a `shareholders` table (name, share %, shares held, share class).
-
-**Remediation:** remove immediately, disable directory indexing, rotate any exposed credentials, store backups outside the web root and encrypted at rest, restrict access, add monitoring for exposed backup files.
+- **Location:** `patient/login.php`
+ 
+#### Description
+The login form was vulnerable to SQL Injection due to unsanitized user input. This allowed authentication controls to be bypassed and enabled unauthorized access to the patient portal.
+ 
+#### Evidence
+ 
+A SQL error was returned when a single quote (`'`) was entered, indicating that user input was being processed directly by a database query.
+ 
+Example test input:
+ 
+```text
+Username: admin'
+Password: test123
 </details>
+```
 
 <details open>
 <summary><strong>MED-03 · Weak PDF Password Protection</strong> — 🟠 High</summary>
