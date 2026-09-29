@@ -241,32 +241,72 @@ Report 3 did not crack with the built-in list. I switched to a larger wordlist (
 
 </details>
 
-<details>
-<summary><strong>MED-05 · Username Enumeration</strong> — 🟢 Low</summary>
+<details Open>
+<summary><strong>Finding-05 · 5. Sensitive Metadata in Patient PDF Files</strong> — 🟡 Medium</summary>
 
-Distinct "username not found" vs. "incorrect password" responses allowed valid-account discovery.
-
-**Remediation:** a single generic message — *"Invalid username or password."*
+**Location:** `patient_report_3.pdf`
+ 
+#### Description
+A patient PDF file contained sensitive metadata that was not visible during normal viewing but could be extracted using metadata analysis tools. The metadata revealed internal information about the server environment and disclosed the location of a database backup file.
+ 
+#### Evidence
+Metadata analysis of a patient report uncovered internal comments referencing a backup file stored on the server.
 </details>
 
-<details>
-<summary><strong>MED-06 · Directory Listing</strong> — 🟢 Low</summary>
+<details Open>
+<summary><strong>Finding-06 · Forgotten Backup Folder with Directory Listing Enabled</strong> — 🔴 Critical</summary>
 
-Indexing enabled on `/patient/`, `/staff/`, `/patient/reports/`, `/old/` — the latter directly exposing the leaked database backup.
-
-**Remediation:** `Options -Indexes` (Apache) / equivalent LiteSpeed config; enforce authorization on sensitive directories.
+**Location:** `old/`
+ 
+#### Description
+A publicly accessible backup directory had directory listing enabled, exposing sensitive files to anyone who visited the URL. The directory contained a database backup file that should not have been accessible from the internet.
+ 
+#### Evidence
+During reconnaissance, a backup directory was identified and found to allow directory listing. The directory exposed a database backup file:
+ 
+```text
+mediroza_db_backup_2019.sql
+```
 </details>
 
+
+<details Open>
+<summary><strong>Finding-07 · Confidential Staff and Shareholder Data Exposed</strong> — 🔴 Critical</summary>
+**Location:** `mediroza_db_backup_2019.sql`
+ 
+#### Description
+A publicly accessible database backup contained highly sensitive information, including employee records, salary data, and shareholder information. The data was stored in plain text and could be accessed without authentication.
+ 
+#### Evidence
+Analysis of the exposed database backup revealed:
+ 
+- Employee names, job titles, contact details, and salary information.
+- Shareholder names and ownership details.
+- Internal organizational information that should not be publicly accessible.
+ 
+#### Impact
+An attacker could access confidential financial and personal data, leading to privacy violations, financial fraud risks, reputational damage, and regulatory compliance issues.
+ 
+#### Recommendation
+- Remove sensitive backup files from publicly accessible locations.
+- Encrypt backups containing confidential information.
+- Restrict access using proper authentication and authorization controls.
+- Implement data classification and retention policies.
+- Perform regular audits to identify exposed sensitive data.
+</details>
 ---
 
 ## ✅ Milestone Results
 
-| Milestone | Description | Status |
-|---|---|:---:|
-| **M1** | Initial access — auth bypass & 3 lab reports retrieved | ✅ Complete |
-| **M2** | Data extraction — encryption cracked on all 3 PDFs, decryption verified | ✅ Complete |
-| **M3** | Critical data exposure — staff salary & shareholder data identified | ✅ Complete |
-| **M4** | Professional penetration-testing report delivered | ✅ Complete |
+| Milestone | Achievement | Status |
+|-----------|-------------|----------|
+| **M1** | Authentication bypass achieved and patient reports accessed | ✅ |
+| **M2** | Protected PDFs accessed and analyzed | ✅ |
+| **M3** | Sensitive employee and shareholder data exposure confirmed | ✅ |
+| **M4** | Penetration testing report completed and documented | ✅ |
+
+### Overall Outcome
+✅ Successfully demonstrated a complete attack chain from initial access to sensitive data exposure, highlighting multiple critical security weaknesses within the target environment.
 
 ```
 M1 ████████████████████ 100% ✅
@@ -280,40 +320,31 @@ M4 ████████████████████ 100% ✅
 ## 📊 Risk Rating Summary
 
 | Finding | Severity | Primary Impact |
-|---|:---:|---|
-| SQL Injection Auth Bypass | 🔴 Critical | Unauthorized access to restricted patient data |
-| Public Database Backup | 🔴 Critical | Exposure of confidential HR/shareholder information |
-| Weak PDF Password Protection | 🟠 High | Offline recovery of protected medical reports |
-| SQL Error Disclosure | 🟡 Medium | Reveals database/query information |
-| Username Enumeration | 🟢 Low | Enables account discovery |
-| Directory Listing | 🟢 Low | Reveals application/server structure |
+|----------|:---------:|----------------|
+| SQL Injection Authentication Bypass | 🔴 Critical | Unauthorized access to the patient portal and sensitive records |
+| Exposed Database Backup | 🔴 Critical | Disclosure of employee and shareholder information |
+| Confidential PDFs Accessible After Login Bypass | 🟠 High | Unauthorized access to patient medical reports |
+| Weak PDF Password Protection | 🟠 High | Exposure of protected medical documents |
+| Sensitive Metadata in PDF Files | 🟡 Medium | Information leakage aiding further attacks |
+| Username Enumeration | 🟡 Medium | Enables discovery of valid user accounts |
+| Directory Listing Enabled | 🔴 Critical | Public access to sensitive backup files and resources |
+
+### Overall Risk Rating: 🔴 Critical
+Multiple critical vulnerabilities enabled a complete attack path from initial access to the disclosure of sensitive patient, employee, and shareholder data.
 
 ---
 
-## ⚠️ Overall Risk Assessment
+## 🔗 Full Attack Chain Summary
 
-<div align="center">
+1. **Reconnaissance** revealed hidden directories through `robots.txt`.
+2. **Username enumeration** identified a valid account on the patient portal.
+3. **SQL Injection** in the login page enabled authentication bypass.
+4. Unauthorized access exposed **three confidential patient PDF reports**.
+5. Weak PDF passwords allowed access to protected report contents.
+6. PDF metadata disclosed information about an internal backup location.
+7. A publicly accessible `/old/` directory exposed a database backup file.
+8. The backup contained sensitive **employee salary**, **personal**, and **shareholder** information.
 
-### **Overall Rating: CRITICAL**
-
-</div>
-
-Multiple vulnerabilities chain together into two serious compromise paths:
-
-**Path A — Patient Data**
-```
-Internet → Public Web App → Patient Login → SQL Injection
-   → Authentication Bypass → Restricted Patient Portal
-   → Confidential Lab Reports → Offline PDF Password Recovery
-   → Medical Information Disclosure
-```
-
-**Path B — Internal Records**
-```
-Internet → /old/ → Public Directory Listing
-   → mediroza_db_backup_2019.sql → Internal Database Records
-   → Employee Info · Salaries · National IDs · Shareholder Data
-```
 
 ---
 
@@ -338,18 +369,6 @@ Internet → /old/ → Public Directory Listing
 
 ---
 
-## 🔐 Evidence Handling & Privacy
-
-Because this engagement involved real healthcare and HR data, evidence has been **sanitized for public release**. The following are intentionally excluded from this repository and retained only in a private submission:
-
-```
-patient_report_1.pdf / 2.pdf / 3.pdf
-report1.txt / 2.txt / 3.txt
-report1.hash / 2.hash / 3.hash
-week4_db_backup.sql
-Raw screenshots containing patient names, medical results, patient IDs,
-passwords, session cookies, tokens, national IDs, or personal contact info
-```
 
 Recommended repo structure:
 
@@ -413,6 +432,6 @@ This penetration test was conducted as part of an **authorized educational secur
 
 **Tags:** `penetration-testing` `web-security` `cybersecurity` `ethical-hacking` `black-box-pentest` `sql-injection` `authentication-bypass` `information-disclosure` `password-cracking` `hashcat` `pdf-security` `security-assessment` `vulnerability-assessment`
 
-*Week 4 Penetration Testing Internship — Batch B082*
+*Week 4 Penetration Testing Internship — Batch B083 - Abdulbasir Serat*
 
 </div>
