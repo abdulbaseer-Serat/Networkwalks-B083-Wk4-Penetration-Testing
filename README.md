@@ -227,13 +227,17 @@ patient_report_3.pdf
 
 **Steps Taken :** 
 I used the Networkwalks Hash Calculator to extract a crackable hash from each PDF, then ran each hash through the Networkwalks Password Cracker. Reports 1, 2, and 2 cracked immediately using the built-in 100 word default wordlist. 
+
 <img width="1916" height="1030" alt="Screenshot 2026-09-29 092035" src="https://github.com/user-attachments/assets/03ff83b0-21f5-4151-89e2-a4787f978e82" />
+
 <img width="1915" height="1033" alt="Screenshot 2026-09-29 092223" src="https://github.com/user-attachments/assets/209c8bc9-735c-4d55-b0cd-5f6b1a976d0d" />
 
 Report 3 did not crack with the built-in list. I switched to a larger wordlist (JTR default password list) and ran the attack again.
+
 <img width="1914" height="1034" alt="Screenshot 2026-09-29 093253" src="https://github.com/user-attachments/assets/920cd20a-49c2-49d5-b6bd-579de271ad64" />
 
-
+**OUTPUT**
+ <img width="1903" height="699" alt="image" src="https://github.com/user-attachments/assets/f72147cc-e78f-48d3-885f-8e852ce1cb57" />
 
 </details>
 
