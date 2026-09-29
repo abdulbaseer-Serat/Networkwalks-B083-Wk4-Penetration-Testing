@@ -142,11 +142,9 @@ Phase 6  Further Exposure Analysis → /old/ backup discovery → HR & sharehold
 
 ## 🕵️ 4 Findings and Proof of Exploitation
 
-### 🐛 Finding 1 — Username Enumeration on Login Page
-
 <details open>
 
-   <summary><strong>MED-01 · Username Enumeration on Login Page</strong> — 🟡 Medium</summary>
+   <summary><strong>Finding-01 · Username Enumeration on Login Page</strong> — 🟡 Medium</summary>
 
 **Location:** `patient/login.php`
 
@@ -165,7 +163,7 @@ Password: test123
 
 
 <details open>
-<summary><strong>MED-02 · SQL Injection Login Bypass </strong> — 🔴 Critical</summary>
+<summary><strong>Finding-02 · SQL Injection Login Bypass </strong> — 🔴 Critical</summary>
 
 - **Location:** `patient/login.php`
  
@@ -203,21 +201,26 @@ The password check is ignored completely. The query returns the admin row and I 
 
 
 <details open>
-<summary><strong>MED-03 · Weak PDF Password Protection</strong> — 🟠 High</summary>
+<summary><strong>Finding-03 · Confidential PDFs Accessible After Login Bypass</strong> — 🟠 High</summary>
 
-All three retrieved lab reports (`patient_report_1/2/3.pdf`) were password-protected but crackable offline:
+**Location:** `patient/reports/`
 
+#### Description
+Following unauthorized access to the patient portal, several confidential patient laboratory reports were available for download. These documents contained sensitive medical information intended only for authorized users.
+
+#### Evidence
+The portal exposed multiple downloadable PDF files:
+
+```text
+patient_report_1.pdf
+patient_report_2.pdf
+patient_report_3.pdf
 ```
-pdf2john patient_report_N.pdf > reportN.hash
-hashcat -m 10500 reportN.hash rockyou.txt
-```
+<img width="1910" height="998" alt="Screenshot 2026-09-29 081823" src="https://github.com/user-attachments/assets/7c96a57f-540c-49e5-bce9-de3c7131d432" />
 
-All three passwords were recovered and independently verified via `pdftotext -upw`. Passwords, hashes, and file contents are **not published** in this repo (see [Evidence Handling](#-evidence-handling--privacy)).
-
-**Remediation:** strong random secrets, application-level authorization instead of static PDF passwords, modern encryption with proper key management.
 </details>
 
-<details>
+<details open >
 <summary><strong>MED-04 · SQL Error Disclosure</strong> — 🟡 Medium</summary>
 
 Malformed login input reflected raw MySQL/MariaDB error text, confirming unsafe SQL construction and assisting further exploitation.
