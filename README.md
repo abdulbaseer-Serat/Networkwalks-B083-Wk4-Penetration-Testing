@@ -140,34 +140,25 @@ Phase 6  Further Exposure Analysis → /old/ backup discovery → HR & sharehold
 
 
 
-## 🕵️ Findings and Proof of Exploitation
+## 🕵️ 4 Findings and Proof of Exploitation
 
-**HTTP fingerprinting** revealed the server stack and CMS version (`LiteSpeed`, `PHP/8.2.33`, `Mediroza CMS 1.4.2`), providing reconnaissance value to an attacker.
-
-**`robots.txt`** disallowed — and thereby advertised — three sensitive paths:
-
-```
-Disallow: /patient/
-Disallow: /staff/
-Disallow: /old/
-```
-
-`/old/` turned out to contain a fully exposed database backup — a reminder that `robots.txt` is a *suggestion to crawlers*, not an access control.
-
----
-<img width="1600" height="874" alt="paitent data" src="https://github.com/user-attachments/assets/3b1d68ec-e466-4413-835e-ae780a2b0a76" />
-<img width="669" height="480" alt="hashes" src="https://github.com/user-attachments/assets/945fb6f5-e5e6-4ed3-87dc-2e70ae109735" />
-
-
-## 🐛 Findings
+### 🐛 Finding 1 — Username Enumeration on Login Page
 
 <details open>
-<summary><strong>MED-01 · SQL Injection Authentication Bypass</strong> — 🔴 Critical</summary>
+<summary><strong>MED-01 · SQL Injection Authentication Bypass</strong> — 🟡 Medium</summary>
 
-**Component:** `/patient/login.php`
+**Location:** `patient/login.php`
 
-The login form processed user input in a way that allowed SQL syntax manipulation. A crafted username using SQL comment syntax (`admin'--`) caused the application to bypass the password check entirely and redirect into the restricted patient portal at `/patient/portal.php`, exposing three lab report entries.
-
+#### Description
+The login page returned different error messages for invalid usernames and incorrect passwords, allowing attackers to determine whether a username exists on the system.
+ 
+#### Evidence
+ 
+**Invalid Username**
+```text
+Username: bob
+Password: test123
+```
 **Likely vulnerable construction:**
 ```sql
 SELECT * FROM patients
