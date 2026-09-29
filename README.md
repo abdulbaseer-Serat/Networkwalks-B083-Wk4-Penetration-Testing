@@ -113,13 +113,15 @@ Phase 6  Further Exposure Analysis → /old/ backup discovery → HR & sharehold
 |---|---|
 | `curl` | HTTP requests, header & endpoint analysis |
 | Browser developer tools | for inspecting page source and login form behaviour - Authentication testing |
-|
-| `ffuf` | Directory / file discovery |
-| `sqlmap` | SQL injection analysis |
+| Networkwalks Hash Calculator | for extracting password hashes from PDF files|
+| Networkwalks Password Cracker | for cracking PDF password hashes using wordlists|
+| `qpdf` | for decrypting password-protected PDF files after cracking |
+| `exiftool` |  for reading hidden metadata from PDF files |
 | `pdf2john` | PDF password-hash extraction |
-| `hashcat` | Offline password recovery |
-| `pdftotext` | Verification & extraction of decrypted PDF contents |
+| `wget` | Offline password recovery |
+| `pdftotext` | for downloading files from the web server |
 | Linux CLI utilities | Evidence collection & file analysis |
+| ChatGPT | for converting raw SQL data into readable tables|
 
 ---
 
