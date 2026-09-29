@@ -145,7 +145,8 @@ Phase 6  Further Exposure Analysis → /old/ backup discovery → HR & sharehold
 ### 🐛 Finding 1 — Username Enumeration on Login Page
 
 <details open>
-<summary><strong>MED-01 · SQL Injection Authentication Bypass</strong> — 🟡 Medium</summary>
+
+   <summary><strong>MED-01 · SQL Injection Authentication Bypass</strong> — 🟡 Medium</summary>
 
 **Location:** `patient/login.php`
 
@@ -159,23 +160,8 @@ The login page returned different error messages for invalid usernames and incor
 Username: bob
 Password: test123
 ```
-**Likely vulnerable construction:**
-```sql
-SELECT * FROM patients
-WHERE username = '$username' AND password = '$password';
-```
-<img width="667" height="489" alt="evidencemed-01-sql-injection-error pn" src="https://github.com/user-attachments/assets/9ca5a89b-35e7-48b5-80ef-e5b0eb005297" />
-<img width="1600" height="876" alt="atient-portal-report-access png" src="https://github.com/user-attachments/assets/ffb98c67-c9d1-4258-aedc-eb99691b6d2a" />
-<img width="1600" height="874" alt="pass found" src="https://github.com/user-attachments/assets/6277bd45-9506-40ef-873a-3669d37a51f3" />
 
 
-**Remediation:** parameterized queries, secure password hashing (Argon2id/bcrypt), generic auth errors, rate limiting/lockout, suspicious-activity logging.
-
-```php
-$stmt = $db->prepare("SELECT id, password_hash FROM patients WHERE username = ?");
-$stmt->bind_param("s", $username);
-$stmt->execute();
-```
 </details>
 
 <details open>
