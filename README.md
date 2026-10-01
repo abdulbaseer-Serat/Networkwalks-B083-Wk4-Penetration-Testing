@@ -52,12 +52,12 @@ Overall, the hospital's security posture is poor, with multiple vulnerabilities 
 
 ### Objectives
 
-1. Gain access to the restricted patient portal
-2. Retrieve three confidential patient laboratory reports
-3. Crack the encryption protecting all three reports
-4. Identify exposed employee salary information
-5. Identify exposed shareholder information
-6. Document vulnerabilities, evidence, impact, and remediation
+1. Gain access to the restricted patient portal.
+2. Retrieve three confidential patient laboratory reports.
+3. Crack the encryption protecting all three reports.
+4. Identify exposed employee salary information.
+5. Identify exposed shareholder information.
+6. Document vulnerabilities, evidence, impact, and remediation.
 
 ### Key Findings
 
