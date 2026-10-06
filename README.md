@@ -264,7 +264,7 @@ Metadata analysis of a patient report uncovered internal comments referencing a 
 **Location:** `old/`
  
 #### Description
-A publicly accessible backup directory had directory listing enabled, exposing sensitive files to anyone who visited the URL. The directory contained a database backup file that should not have been accessible from the internet.
+A publicly accessible backup directory had directory listing enabled, exposing sensitive files to anyone who visited the URL. The directory contained a database backup file that should not have been accessible from the internet
  
 #### Evidence
 During reconnaissance, a backup directory was identified and found to allow directory listing. The directory exposed a database backup file:
