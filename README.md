@@ -295,11 +295,11 @@ Analysis of the exposed database backup revealed:
 An attacker could access confidential financial and personal data, leading to privacy violations, financial fraud risks, reputational damage, and regulatory compliance issues.
  
 #### Recommendation
-- Remove sensitive backup files from publicly accessible locations.
-- Encrypt backups containing confidential information.
-- Restrict access using proper authentication and authorization controls.
-- Implement data classification and retention policies.
-- Perform regular audits to identify exposed sensitive data.
+- Remove sensitive backup files from publicly accessible locations
+- Encrypt backups containing confidential information
+- Restrict access using proper authentication and authorization controls
+- Implement data classification and retention policies
+- Perform regular audits to identify exposed sensitive data
 </details>
 ---
 
