@@ -364,9 +364,9 @@ Multiple critical vulnerabilities enabled a complete attack path from initial ac
 - Investigate whether exposed data was accessed by unauthorized parties
 
 ### Priority 2 — High
-- Strengthen patient authentication (secure hashing, MFA, rate limiting, lockout, CSRF protection)
-- Replace static PDF passwords with strong secrets + application-level authorization
-- Remove verbose database error disclosure from production
+- Strengthen patient authentication (secure hashing, MFA, rate limiting, lockout, CSRF protection).
+- Replace static PDF passwords with strong secrets + application-level authorization.
+- Remove verbose database error. disclosure from production
 
 ### Priority 3 — Medium / Low
 - Generic authentication error messages (prevent enumeration)
